@@ -29,7 +29,7 @@ const FetchCoursesList = () => {
       }
 
     // Call the async function
-     fetchData();
+     //fetchData();
   }, []); // The empty dependency array means this effect runs once when the component mounts
 
   return (
