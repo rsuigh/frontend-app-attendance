@@ -7,7 +7,7 @@ const ExamplePage = () => (
     <Container className="py-5">
       <h1>Example Page</h1>
       <p>Hello world!</p>
-      teste
+      teste2
     </Container>
   </main>
 );
