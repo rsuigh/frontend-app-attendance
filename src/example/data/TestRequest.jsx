@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { getConfig } from '@edx/frontend-platform';
 
-import * as utils from '../../data/services/lms/utils';
+import * as utils from './services/lms/utils';
 
 const FetchCoursesList = () => {
   const [list, setList] = useState([]);
