@@ -8,7 +8,6 @@ const ExamplePage = () => (
       <h1>Example Page</h1>
       <p>Hello world!</p>
       teste
-      <FetchCoursesList/>
     </Container>
   </main>
 );
