@@ -19,7 +19,7 @@ const FetchCoursesList = () => {
     // Define the async function
       const fetchData = async () => {
         try {
-          const response = await get(stringifyUrl(getCourseList(), ));
+          const response = await get(stringifyUrl(getGradebookUrl(), ));
           console.log(response.data)
           setList(response.data);
           setLoading(false)
@@ -29,7 +29,7 @@ const FetchCoursesList = () => {
       }
 
     // Call the async function
-    // fetchData();
+     fetchData();
   }, []); // The empty dependency array means this effect runs once when the component mounts
 
   return (
