@@ -11,7 +11,7 @@ const FetchCoursesList = () => {
   const getUrlPrefix = () => `${getConfig().LMS_BASE_URL}/api/`;
   const getEnrollmentUrl = () => `${getUrlPrefix()}enrollment/v1/`;
   const getGradesUrl = () => `${getUrlPrefix()}grades/v1/`;
-  const getGradebookUrl = () => `${getGradesUrl()}gradebook/course-v1:Minha+CT01+T01/`;
+  const getGradebookUrl = () => `${getGradesUrl()}gradebook/course-v1:edX+DemoX+Demo_Course/`;
   const getCourseList = () => `${getUrlPrefix()}courses/v1/courses/`;
   const { get, post, stringifyUrl } = utils;
 
@@ -29,7 +29,7 @@ const FetchCoursesList = () => {
       }
 
     // Call the async function
-     //fetchData();
+     fetchData();
   }, []); // The empty dependency array means this effect runs once when the component mounts
 
   return (
