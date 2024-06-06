@@ -1,5 +1,5 @@
 import { Container } from '@openedx/paragon';
-import { FetchCoursesList } from "./data/TestRequest"
+import  FetchCoursesList  from "./data/TestRequest"
 
 
 const ExamplePage = () => (
@@ -8,7 +8,7 @@ const ExamplePage = () => (
       <h1>Example Page</h1>
       <p>Hello world!</p>
       teste2
-      
+      <FetchCoursesList/>
     </Container>
   </main>
 );
