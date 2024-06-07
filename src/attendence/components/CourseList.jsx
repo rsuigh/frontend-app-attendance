@@ -13,6 +13,9 @@ import * as utils from '../data/services/lms/utils';
 import { getCourseList } from '../data/services/lms/api';
 import StudentList from './StudentList';
 
+import Cookies from 'universal-cookie';
+
+
 const CoursesList = () => {
     const [list, setList] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -22,9 +25,9 @@ const CoursesList = () => {
     const { get, post, stringifyUrl } = utils;
 
     const handleSelectCourseChange = (course_id) => {
-        console.dir(course_id)
         setSelectCourse(course_id);
     };
+
 
   
     useEffect(() => {
