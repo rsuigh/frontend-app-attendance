@@ -50,6 +50,7 @@ const StudentList = ({course}) => {
   
       // Call the async function
        fetchData();
+       setStudentsPresent([])
     }, [course]); // The empty dependency array means this effect runs once when the component mounts
   
     return (
@@ -77,7 +78,7 @@ const StudentList = ({course}) => {
                         </Form.Checkbox>
                     </li> */}
                     {list.map(item => (
-                        <li key={item.id}> 
+                        <li key={item.user_id}> 
                             <Form.Checkbox className="flex-column flex-sm-row" onChange={(event) => handleStudentsPresent(event, item.user_id)}>
                                 {item.username}
                             </Form.Checkbox>
