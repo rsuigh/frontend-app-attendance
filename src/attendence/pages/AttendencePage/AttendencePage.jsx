@@ -11,11 +11,8 @@ const AttendencePage = () => {
   return(
       <main>
         <Container className="py-5">
-          <h1>Selecione o curso:</h1>
-
+          <h2>Chamada</h2>
           <CoursesList />
-          
-
         </Container>
       </main>
   )

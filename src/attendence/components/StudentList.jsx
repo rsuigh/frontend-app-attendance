@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import * as utils from '../data/services/lms/utils';
 import { getEnrroledStudentListUrl } from '../data/services/lms/api';
 
-const StudentList = (course) => {
+const StudentList = ({course}) => {
     const [list, setList] = useState([]);
     const [loading, setLoading] = useState(true);
     
@@ -13,8 +13,7 @@ const StudentList = (course) => {
       // Define the async function
         const fetchData = async () => {
           try {
-            console.log(getEnrroledStudentListUrl(course.course_id))
-            const response = await get(getEnrroledStudentListUrl(course.course_id));
+            const response = await get(getEnrroledStudentListUrl(course));
             setList(response.data);
             setLoading(false)
           } catch (error) {

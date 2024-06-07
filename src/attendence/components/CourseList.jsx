@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
+import {
+    Button,
+    Alert,
+    ModalDialog,
+    ActionRow,
+    SelectMenu,
+    MenuItem,
+  } from '@openedx/paragon';
+
 import * as utils from '../data/services/lms/utils';
 import { getCourseList } from '../data/services/lms/api';
 import StudentList from './StudentList';
@@ -8,13 +17,15 @@ const CoursesList = () => {
     const [list, setList] = useState([]);
     const [loading, setLoading] = useState(true);
     
-    const [selectedIdOption, setSelectedIdOption] = useState('');
+    const [selectCourse, setSelectCourse] = useState('');
     
     const { get, post, stringifyUrl } = utils;
 
-    const handleSelectIdChange = (event) => {
-        setSelectedIdOption(event.target.value);
+    const handleSelectCourseChange = (course_id) => {
+        console.dir(course_id)
+        setSelectCourse(course_id);
     };
+
   
     useEffect(() => {
       // Define the async function
@@ -37,16 +48,18 @@ const CoursesList = () => {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <select id="selectOption" value={selectedIdOption} onChange={handleSelectIdChange}>
-            <option key="" value="---">---</option>
-            {list.results.map(item => (
-                <option key={item.id} value={item.id}>
-                    {item.name}
-                </option>
-            ))}
-          </select>
+          
+            <SelectMenu defaultMessage="Selecione o curso">
+                {list.results.map(item => (
+                    
+                    <MenuItem key={item.id} value={item.id} onClick={() => {handleSelectCourseChange(item.id)}}>{item.name}</MenuItem>
+                    
+                ))}
+          
+            </SelectMenu>
         )}
-        <StudentList course_id={selectedIdOption}/>
+        {selectCourse && <StudentList course={selectCourse}/>}
+        
       </div>
     );
   };
