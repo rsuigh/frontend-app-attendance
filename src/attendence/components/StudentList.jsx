@@ -78,7 +78,7 @@ const StudentList = ({course}) => {
                     </li> */}
                     {list.map(item => (
                         <li key={item.id}> 
-                            <Form.Checkbox className="flex-column flex-sm-row" onChange={(event) => handleStudentsPresent(event, item.id)}>
+                            <Form.Checkbox className="flex-column flex-sm-row" onChange={(event) => handleStudentsPresent(event, item.user_id)}>
                                 {item.username}
                             </Form.Checkbox>
                         </li>
