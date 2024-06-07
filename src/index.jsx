@@ -10,9 +10,10 @@ import ReactDOM from 'react-dom';
 import Header from '@edx/frontend-component-header';
 import Footer from '@edx/frontend-component-footer';
 import messages from './i18n';
-import AttendencePage from './attendence/AttendencePage';
+import AttendencePage from './attendence/pages/AttendencePage/AttendencePage';
 
 import './index.scss';
+
 
 subscribe(APP_READY, () => {
   ReactDOM.render(

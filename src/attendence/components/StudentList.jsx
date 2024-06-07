@@ -1,26 +1,20 @@
 import React, { useState, useEffect } from 'react';
 
 import * as utils from '../data/services/lms/utils';
-import { getCourseList } from '../data/services/lms/api';
-import StudentList from './StudentList';
+import { getEnrroledStudentListUrl } from '../data/services/lms/api';
 
-const CoursesList = () => {
+const StudentList = (course) => {
     const [list, setList] = useState([]);
     const [loading, setLoading] = useState(true);
     
-    const [selectedIdOption, setSelectedIdOption] = useState('');
-    
     const { get, post, stringifyUrl } = utils;
-
-    const handleSelectIdChange = (event) => {
-        setSelectedIdOption(event.target.value);
-    };
   
     useEffect(() => {
       // Define the async function
         const fetchData = async () => {
           try {
-            const response = await get(getCourseList());
+            console.log(getEnrroledStudentListUrl(course.course_id))
+            const response = await get(getEnrroledStudentListUrl(course.course_id));
             setList(response.data);
             setLoading(false)
           } catch (error) {
@@ -37,18 +31,14 @@ const CoursesList = () => {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <select id="selectOption" value={selectedIdOption} onChange={handleSelectIdChange}>
-            <option key="" value="---">---</option>
+          <ul>
             {list.results.map(item => (
-                <option key={item.id} value={item.id}>
-                    {item.name}
-                </option>
+              <li key={item.user_id}>{item.username}</li>
             ))}
-          </select>
+          </ul>
         )}
-        <StudentList course_id={selectedIdOption}/>
       </div>
     );
   };
   
-  export default CoursesList;
+  export default StudentList;
