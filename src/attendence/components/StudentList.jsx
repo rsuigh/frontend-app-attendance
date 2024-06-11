@@ -25,6 +25,7 @@ const StudentList = ({course}) => {
         event.preventDefault()
         const formData = new FormData(event.target)
         const data = {}
+        data['course_id'] = course
         for (const [key, value] of formData) {
             data[key] = value
         }
