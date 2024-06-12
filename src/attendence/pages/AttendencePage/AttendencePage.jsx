@@ -1,12 +1,12 @@
 import { Container } from '@openedx/paragon';
 import CoursesList from '../../components/CourseList';
-import React, { useState } from 'react';
+import React from 'react';
 
 
 
 
 
-const AttendencePage = () => {
+const AttendancePage = () => {
   
   return(
       <main>
@@ -18,4 +18,4 @@ const AttendencePage = () => {
   )
 }
 
-export default AttendencePage;
+export default AttendancePage;
