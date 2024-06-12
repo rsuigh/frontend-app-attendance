@@ -13,7 +13,6 @@ import * as utils from '../data/services/lms/utils';
 import { getCourseList } from '../data/services/lms/api';
 import StudentList from './StudentList';
 
-import Cookies from 'universal-cookie';
 
 
 const CoursesList = () => {
