@@ -41,12 +41,11 @@ to the `relevant tutor-mfe documentation`_ to get started using it.
 Cloning and Startup
 ===================
 
-In the following steps, replace "[PLACEHOLDER]" with the name of the repo you
-created when copying this template above.
+
 
 1. Clone your new repo:
 
-  ``git clone https://github.com/openedx/frontend-app-[PLACEHOLDER].git``
+  ``git clone https://github.com/openedx/frontend-app-attendance.git``
 
 2. Use node v18.x.
 
@@ -57,7 +56,7 @@ created when copying this template above.
 
 3. Install npm dependencies:
 
-  ``cd frontend-app-[PLACEHOLDER] && npm install``
+  ``cd frontend-app-attendance && npm install``
 
 4. Update the application port to use for local development:
 
@@ -74,9 +73,7 @@ or whatever port you setup.
 Making Your New Project's README File
 =====================================
 
-Move ``README-template-frontend-app.rst`` to your project's ``README.rst``
-file. Please fill out all the sections - this helps out all developers
-understand your MFE, how to install it, and how to use it.
+
 
 Developing
 **********
