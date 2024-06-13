@@ -50,7 +50,6 @@ const StudentList = ({course}) => {
     
         // Call the async function
          fetchData();
-         setStudentsPresent([])
       }, [course]);
 
     
