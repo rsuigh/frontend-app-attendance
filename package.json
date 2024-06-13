@@ -1,5 +1,5 @@
 {
-  "name": "@edx/frontend-app-attendance-mfe",
+  "name": "@edx/frontend-app-attendance",
   "version": "0.1.0",
   "description": "MFE to student attendance",
   "repository": {
