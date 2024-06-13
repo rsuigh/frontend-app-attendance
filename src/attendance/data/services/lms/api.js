@@ -5,6 +5,7 @@ import * as utils from '../lms/utils';
 
 const { get, post, stringifyUrl } = utils;
 
+// esse query params exclui os usuarios que tem qualquer role no curso, tanto equipe quanto superusers
 const queryParams = {
     'excluded_course_roles': ['all'],
   };

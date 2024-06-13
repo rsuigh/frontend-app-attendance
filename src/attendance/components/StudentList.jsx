@@ -33,25 +33,6 @@ const StudentList = ({course}) => {
     }
 
 
-    useEffect(() => {
-        // Define the async function
-          const fetchData = async () => {
-            try {
-                console.log('antes do get '+getMembersUrl(course))
-                const response = await get(`http://apps.local.edly.io:8001/api/contentstore/v1/course_team/${course}`);
-                console.log(response)
-                setLoading(false)
-            } catch (error) {
-              console.error('Error fetching data:', error);
-            } finally {
-              setLoading(false)
-            }
-          }
-    
-        // Call the async function
-         fetchData();
-      }, [course]);
-
     
   
     useEffect(() => {
