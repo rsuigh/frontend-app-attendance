@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import * as utils from '../data/services/lms/utils';
-import { getEnrroledStudentListUrl } from '../data/services/lms/api';
+import { getEnrroledStudentListUrl, getMembersUrl } from '../data/services/lms/api';
 import { Button, Col, Form } from '@openedx/paragon';
 
 const StudentList = ({course}) => {
@@ -17,7 +17,6 @@ const StudentList = ({course}) => {
             setStudentsPresent(studentNewList)
         }
     }
-    console.log(studentsPresent)
     
     const { get, post, stringifyUrl } = utils;
 
@@ -32,6 +31,27 @@ const StudentList = ({course}) => {
         data['studentsPresent'] = studentsPresent
         console.log(data)
     }
+
+
+    useEffect(() => {
+        // Define the async function
+          const fetchData = async () => {
+            try {
+                console.log('antes do get '+getMembersUrl(course))
+                const response = await get(getMembersUrl(course));
+                console.log(response)
+                setLoading(false)
+            } catch (error) {
+              console.error('Error fetching data:', error);
+            } finally {
+              setLoading(false)
+            }
+          }
+    
+        // Call the async function
+         fetchData();
+         setStudentsPresent([])
+      }, [course]);
 
     
   
