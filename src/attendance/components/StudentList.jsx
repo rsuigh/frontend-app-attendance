@@ -38,7 +38,7 @@ const StudentList = ({course}) => {
           const fetchData = async () => {
             try {
                 console.log('antes do get '+getMembersUrl(course))
-                const response = await get(`http://apps.local.edly.io:8001/api/${course}`);
+                const response = await get(`http://apps.local.edly.io:8001/api/contentstore/v1/course_team/${course}`);
                 console.log(response)
                 setLoading(false)
             } catch (error) {
