@@ -4,13 +4,16 @@ import * as utils from '../data/services/lms/utils';
 import { getEnrroledStudentListUrl, getMembersUrl } from '../data/services/lms/urls';
 import { Button, Col, Form } from '@openedx/paragon';
 
+
+
 const StudentList = ({course}) => {
     const [list, setList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [studentsPresent, setStudentsPresent] = useState([])
+    console.log(studentsPresent)
 
     const handleStudentsPresent = (event, username) => {
-        const newStudentsPresentList = studentsPresent.map(student => {
+        const newStudentsPresentList = studentsPresent?.map(student => {
             if (student.username == username) {
                 return {username, present: event.target.checked}
             }
@@ -19,6 +22,8 @@ const StudentList = ({course}) => {
         console.log(newStudentsPresentList)
         setStudentsPresent(newStudentsPresentList)
     }
+
+    
     
     const { get, post, stringifyUrl } = utils;
 
@@ -34,6 +39,8 @@ const StudentList = ({course}) => {
         console.log(data)
     }
 
+    
+
    
 
 
@@ -44,7 +51,6 @@ const StudentList = ({course}) => {
         const fetchData = async () => {
           try {
               const response = await get(getEnrroledStudentListUrl(course));
-              console.log(response.data.results)
               setList(response.data.results);
               setLoading(false)
               return response.data.results
@@ -56,10 +62,13 @@ const StudentList = ({course}) => {
         }
   
       // Call the async function
-       const students = fetchData(); 
-       setStudentsPresent(students.map(student => {
-        return {username: student.username, present: false}
-       }))
+       fetchData().then((students) => {
+        setStudentsPresent(students?.map(student => {
+            return {username: student.username, present: false}
+           }))
+       }); 
+
+       
     }, [course]); // The empty dependency array means this effect runs once when the component mounts
     
     return (
@@ -81,7 +90,7 @@ const StudentList = ({course}) => {
                 </Form.Row>
                 <p>Lista de estudantes</p>
                 <ul className='mt-4'>
-                    <li> 
+                    {/* <li> 
                         <Form.Checkbox key='id_fulano' className="flex-column flex-sm-row" onChange={(event) => handleStudentsPresent(event, 'fulano')}>
                             Fulano
                         </Form.Checkbox>
@@ -95,7 +104,7 @@ const StudentList = ({course}) => {
                         <Form.Checkbox key='id_zezinho' className="flex-column flex-sm-row" onChange={(event) => handleStudentsPresent(event, 'zezinho')}>
                             Zezinho
                         </Form.Checkbox>
-                    </li>
+                    </li> */}
                     
                     {list.map(item => (
                         <li key={item.user_id}> 
