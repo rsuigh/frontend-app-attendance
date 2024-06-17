@@ -12,11 +12,12 @@ const StudentList = ({course}) => {
     const handleStudentsPresent = (event, username) => {
         const newStudentsPresentList = studentsPresent.map(student => {
             if (student.username == username) {
-
+                return {username, present: event.target.checked}
             }
+            return student
         })
         console.log(newStudentsPresentList)
-        //setStudentsPresent()
+        setStudentsPresent(newStudentsPresentList)
     }
     
     const { get, post, stringifyUrl } = utils;
@@ -56,9 +57,9 @@ const StudentList = ({course}) => {
   
       // Call the async function
        const students = fetchData(); 
-    //    setStudentsPresent(students.map(student => {
-    //     return {username: student.username, present: false}
-    //    }))
+       setStudentsPresent(students.map(student => {
+        return {username: student.username, present: false}
+       }))
     }, [course]); // The empty dependency array means this effect runs once when the component mounts
     
     return (
