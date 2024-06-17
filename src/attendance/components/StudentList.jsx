@@ -41,7 +41,7 @@ const StudentList = ({course}) => {
         const requestOptions = {
             method: "POST",
             headers: myHeaders,
-            body: data,
+            body: JSON.stringify(data),
             redirect: "follow"
         };
         fetch(postAttendanceUrl(), requestOptions)
