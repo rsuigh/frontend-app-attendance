@@ -1,11 +1,11 @@
 import { getConfig } from '../../../config';
 
-import * as utils from '../lms/utils';
+import * as utils from './utils';
 
 
 const { get, post, stringifyUrl } = utils;
 
-// esse query params exclui os usuarios que tem qualquer role no curso, tanto equipe quanto superusers
+// this queryParams excludes all users with roles
 const queryParams = {
     'excluded_course_roles': ['all'],
   };
@@ -19,6 +19,7 @@ export const getEnrollmentUrl = () => `${getUrlPrefix()}enrollment/v1/`;
 export const getEnrroledStudentListUrl = (course_id) => stringifyUrl(`${getGradesUrl()}gradebook/${course_id}/`, queryParams);
 export const getCourseList = () => `${getUrlPrefix()}courses/v1/courses/`;
 export const getMembersUrl = (course_id) => `${getCMSUrlPrefix()}contentstore/v1/course_team/${course_id}`
+export const postAttendance = () => `${getUrlPrefix()}attendance/`
 
 
 

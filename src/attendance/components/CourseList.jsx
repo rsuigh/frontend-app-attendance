@@ -10,7 +10,7 @@ import {
   } from '@openedx/paragon';
 
 import * as utils from '../data/services/lms/utils';
-import { getCourseList } from '../data/services/lms/api';
+import { getCourseList } from '../data/services/lms/urls';
 import StudentList from './StudentList';
 
 

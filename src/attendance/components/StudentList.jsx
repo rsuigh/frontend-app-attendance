@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import * as utils from '../data/services/lms/utils';
-import { getEnrroledStudentListUrl, getMembersUrl } from '../data/services/lms/api';
+import { getEnrroledStudentListUrl, getMembersUrl } from '../data/services/lms/urls';
 import { Button, Col, Form } from '@openedx/paragon';
 
 const StudentList = ({course}) => {
@@ -9,13 +9,14 @@ const StudentList = ({course}) => {
     const [loading, setLoading] = useState(true);
     const [studentsPresent, setStudentsPresent] = useState([])
 
-    const handleStudentsPresent = (event, studentId) => {
-        if (event.target.checked) {
-            setStudentsPresent([...studentsPresent, studentId])
-        } else {
-            const studentNewList = studentsPresent.filter((stuId) => stuId != studentId)
-            setStudentsPresent(studentNewList)
-        }
+    const handleStudentsPresent = (event, username) => {
+        const newStudentsPresentList = studentsPresent.map(student => {
+            if (student.username == username) {
+
+            }
+        })
+        console.log(newStudentsPresentList)
+        //setStudentsPresent()
     }
     
     const { get, post, stringifyUrl } = utils;
@@ -28,9 +29,11 @@ const StudentList = ({course}) => {
         for (const [key, value] of formData) {
             data[key] = value
         }
-        data['studentsPresent'] = studentsPresent
+        data['students_presents'] = studentsPresent
         console.log(data)
     }
+
+   
 
 
     
@@ -40,8 +43,10 @@ const StudentList = ({course}) => {
         const fetchData = async () => {
           try {
               const response = await get(getEnrroledStudentListUrl(course));
+              console.log(response.data.results)
               setList(response.data.results);
               setLoading(false)
+              return response.data.results
           } catch (error) {
             console.error('Error fetching data:', error);
           } finally {
@@ -50,10 +55,12 @@ const StudentList = ({course}) => {
         }
   
       // Call the async function
-       fetchData();
-       setStudentsPresent([])
+       const students = fetchData(); 
+    //    setStudentsPresent(students.map(student => {
+    //     return {username: student.username, present: false}
+    //    }))
     }, [course]); // The empty dependency array means this effect runs once when the component mounts
-  
+    
     return (
       <div>
         {loading ? (
@@ -66,21 +73,32 @@ const StudentList = ({course}) => {
                     </Form.Group>
                     <Form.Group as={Col}>
                         <Form.Control name='class_type' as="select" floatingLabel="Tipo de aula" className='mt-4'> 
-                            <option value="aula">Aula normal</option>
-                            <option value="repo">Reposição</option>
+                            <option value="an">Aula normal</option>
+                            <option value="ar">Reposição</option>
                         </Form.Control>
                     </Form.Group>
                 </Form.Row>
                 <p>Lista de estudantes</p>
                 <ul className='mt-4'>
-                    {/* <li> 
-                        <Form.Checkbox key='id_fulano' className="flex-column flex-sm-row" onChange={(event) => handleStudentsPresent(event, 'um')}>
+                    <li> 
+                        <Form.Checkbox key='id_fulano' className="flex-column flex-sm-row" onChange={(event) => handleStudentsPresent(event, 'fulano')}>
                             Fulano
                         </Form.Checkbox>
-                    </li> */}
+                    </li>
+                    <li> 
+                        <Form.Checkbox key='id_beltrano' className="flex-column flex-sm-row" onChange={(event) => handleStudentsPresent(event, 'beltrano')}>
+                            Beltrano
+                        </Form.Checkbox>
+                    </li>
+                    <li> 
+                        <Form.Checkbox key='id_zezinho' className="flex-column flex-sm-row" onChange={(event) => handleStudentsPresent(event, 'zezinho')}>
+                            Zezinho
+                        </Form.Checkbox>
+                    </li>
+                    
                     {list.map(item => (
                         <li key={item.user_id}> 
-                            <Form.Checkbox className="flex-column flex-sm-row" onChange={(event) => handleStudentsPresent(event, item.user_id)}>
+                            <Form.Checkbox className="flex-column flex-sm-row" onChange={(event) => handleStudentsPresent(event, item.username)}>
                                 {item.username}
                             </Form.Checkbox>
                         </li>
