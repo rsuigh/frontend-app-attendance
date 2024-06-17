@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import * as utils from '../data/services/lms/utils';
-import { getEnrroledStudentListUrl, getMembersUrl } from '../data/services/lms/urls';
+import { getEnrroledStudentListUrl, postAttendanceUrl } from '../data/services/lms/urls';
 import { Button, Col, Form } from '@openedx/paragon';
 
 
@@ -10,7 +10,6 @@ const StudentList = ({course}) => {
     const [list, setList] = useState([]);
     const [loading, setLoading] = useState(true);
     const [studentsPresent, setStudentsPresent] = useState([])
-    console.log(studentsPresent)
 
     const handleStudentsPresent = (event, username) => {
         const newStudentsPresentList = studentsPresent?.map(student => {
@@ -19,7 +18,6 @@ const StudentList = ({course}) => {
             }
             return student
         })
-        console.log(newStudentsPresentList)
         setStudentsPresent(newStudentsPresentList)
     }
 
@@ -27,7 +25,7 @@ const StudentList = ({course}) => {
     
     const { get, post, stringifyUrl } = utils;
 
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault()
         const formData = new FormData(event.target)
         const data = {}
@@ -35,8 +33,19 @@ const StudentList = ({course}) => {
         for (const [key, value] of formData) {
             data[key] = value
         }
-        data['students_presents'] = studentsPresent
-        console.log(data)
+        data['students_attendance'] = studentsPresent
+        setLoading(true)
+        try {
+            const reponse = await post(postAttendanceUrl(), data)
+            setLoading(false)
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false)
+        }
+        
+
     }
 
     
