@@ -35,18 +35,30 @@ const StudentList = ({course}) => {
         }
         data['students_attendance'] = studentsPresent
         setLoading(true)
-        try {
-            const reponse = await post(postAttendanceUrl(), data)
-            setLoading(false)
 
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        } finally {
-            setLoading(false)
-        }
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: data,
+            redirect: "follow"
+        };
+        fetch(postAttendanceUrl(), requestOptions)
+            .then((response) => response.text())
+            .then((result) => console.log(result))
+            .catch((error) => console.error(error));
         
 
     }
+
+
+    
+
+
+    
+
+    
 
     
 
