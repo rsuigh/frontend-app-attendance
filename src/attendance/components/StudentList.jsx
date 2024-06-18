@@ -4,13 +4,13 @@ import * as utils from '../data/services/lms/utils';
 import { getEnrroledStudentListUrl, postAttendanceUrl } from '../data/services/lms/urls';
 import { Button, Col, Form } from '@openedx/paragon';
 
-import hcjson from './response.JSON'
+// import hcjson from './response.JSON'
 
 
 
 const StudentList = ({courseId}) => {
-    // const [list, setList] = useState([]);
-    const [list, setList] = useState(hcjson.results);
+    const [list, setList] = useState([]);
+    // const [list, setList] = useState(hcjson.results);
     const [loading, setLoading] = useState(true);
     const [studentsPresent, setStudentsPresent] = useState([])
 
