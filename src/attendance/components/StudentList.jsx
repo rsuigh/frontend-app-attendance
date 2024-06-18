@@ -4,10 +4,13 @@ import * as utils from '../data/services/lms/utils';
 import { getEnrroledStudentListUrl, postAttendanceUrl } from '../data/services/lms/urls';
 import { Button, Col, Form } from '@openedx/paragon';
 
+import hcjson from './response.JSON'
 
 
-const StudentList = ({course}) => {
-    const [list, setList] = useState([]);
+
+const StudentList = ({courseId}) => {
+    // const [list, setList] = useState([]);
+    const [list, setList] = useState(hcjson.results);
     const [loading, setLoading] = useState(true);
     const [studentsPresent, setStudentsPresent] = useState([])
 
@@ -18,6 +21,7 @@ const StudentList = ({course}) => {
             }
             return student
         })
+        console.log(newStudentsPresentList)
         setStudentsPresent(newStudentsPresentList)
     }
 
@@ -29,7 +33,7 @@ const StudentList = ({course}) => {
         event.preventDefault()
         const formData = new FormData(event.target)
         const data = {}
-        data['course_id'] = course
+        data['course_id'] = courseId.courseId
         for (const [key, value] of formData) {
             data[key] = value
         }
@@ -46,32 +50,23 @@ const StudentList = ({course}) => {
         };
         fetch(postAttendanceUrl(), requestOptions)
             .then((response) => response.text())
-            .then((result) => console.log(result))
-            .catch((error) => console.error(error));
+            .then((result) => {
+                console.log(result)
+                setLoading(false)
+            })
+            .catch((error) => {
+                console.error(error)
+                setLoading(false)
+            });
         
 
-    }
-
-
-    
-
-
-    
-
-    
-
-    
-
-   
-
-
-    
+    } 
   
     useEffect(() => {
       // Define the async function
         const fetchData = async () => {
           try {
-              const response = await get(getEnrroledStudentListUrl(course));
+              const response = await get(getEnrroledStudentListUrl(courseId.courseId));
               setList(response.data.results);
               setLoading(false)
               return response.data.results
@@ -90,7 +85,7 @@ const StudentList = ({course}) => {
        }); 
 
        
-    }, [course]); // The empty dependency array means this effect runs once when the component mounts
+    }, [courseId]); // The empty dependency array means this effect runs once when the component mounts
     
     return (
       <div>

@@ -5,7 +5,9 @@ import {
   APP_INIT_ERROR, APP_READY, subscribe, initialize,
 } from '@edx/frontend-platform';
 import { AppProvider, ErrorPage } from '@edx/frontend-platform/react';
+
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Header from '@edx/frontend-component-header';
 import Footer from '@edx/frontend-component-footer';
@@ -18,9 +20,16 @@ import './index.scss';
 subscribe(APP_READY, () => {
   ReactDOM.render(
     <AppProvider>
+      
       <Header />
-      <AttendancePage />
+        <Routes>
+          <Route
+            path="/attendance/:courseId"
+            element={<AttendancePage />}
+          /> 
+        </Routes>
       <Footer />
+      
     </AppProvider>,
     document.getElementById('root'),
   );
