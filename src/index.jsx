@@ -24,7 +24,7 @@ subscribe(APP_READY, () => {
       <Header />
         <Routes>
           <Route
-            path="/attendance/:courseId"
+            path="/:courseId"
             element={<AttendancePage />}
           /> 
         </Routes>
