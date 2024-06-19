@@ -23,7 +23,7 @@ const AttendancePage = () => {
       const fetchData = async () => {
         try {
           const response = await get(getEnrollmentRoleUrl(courseId));
-          if (response.is_staff) {
+          if (response.data.is_staff) {
             setIsStaff(true)
           }
           console.log(response)
