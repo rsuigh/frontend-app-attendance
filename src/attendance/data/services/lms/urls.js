@@ -17,7 +17,7 @@ const queryParams = {
 export const getUrlPrefix = () => `${getConfig().LMS_BASE_URL}/api/`;
 export const getAttendancePrefix = () => `${ATTENDANCE_URL}/api/`
 export const getGradesUrl = () => `${getUrlPrefix()}grades/v1/`;
-export const getEnrollmentUrl = () => `${getUrlPrefix()}enrollment/v1/`;
+export const getEnrollmentRoleUrl = (course_id) => `${getUrlPrefix()}enrollment/v1/roles/?course_id=${course_id}`;
 export const getEnrroledStudentListUrl = (course_id) => stringifyUrl(`${getGradesUrl()}gradebook/${course_id}/`, queryParams);
 export const getCourseList = () => `${getUrlPrefix()}courses/v1/courses/`;
 export const postAttendanceUrl = () => `${getAttendancePrefix()}attendance/`

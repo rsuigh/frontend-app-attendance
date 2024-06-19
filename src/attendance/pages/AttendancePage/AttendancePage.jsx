@@ -1,8 +1,11 @@
 import { Container } from '@openedx/paragon';
 import CoursesList from '../../components/CourseList';
-import { fetchAuthenticatedUser } from '@edx/frontend-platform/auth/interface'
+import { getEnrollmentRoleUrl } from '../../data/services/lms/urls'
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
+import * as utils from '../../data/services/lms/utils';
+
 
 
 
@@ -10,19 +13,20 @@ import { useParams } from 'react-router-dom';
 
 const AttendancePage = () => {
   const { courseId } = useParams()
-  const [isLogged, setIsLogged] = useState(false)
+  const [isStaff, setIsStaff] = useState(false)
+
+  const { get, post, stringifyUrl } = utils;
+
   
-  console.log(courseId)
-
-
   useEffect(() => {
     // Define the async function
       const fetchData = async () => {
         try {
-          const response = await fetchAuthenticatedUser();
-          if (response) {
-            setIsLogged(true)
+          const response = await get(getEnrollmentRoleUrl(courseId));
+          if (response.is_staff) {
+            setIsStaff(true)
           }
+          console.log(response)
         } catch (error) {
           console.error('Error fetching data:', error);
         }
@@ -36,7 +40,7 @@ const AttendancePage = () => {
       <main>
         <Container className="py-5">
           <h2>Chamada</h2>
-          {!isLogged ? (<p>Faça Login para ter acesso</p>) : (<CoursesList courseId={courseId}/>)}
+          {!isStaff ? (<p>Você não tem acesso</p>) : (<CoursesList courseId={courseId}/>)}
         </Container>
       </main>
   )
