@@ -191,3 +191,18 @@ Please do not report security issues in public, and email security@openedx.org i
 .. |codecov-badge| image:: https://codecov.io/github/openedx/frontend-app-test/coverage.svg?branch=main
     :target: https://codecov.io/github/openedx/frontend-app-test?branch=main
     :alt: Codecov
+
+Add plugin
+**********
+
+.. code-block:: python 
+  from tutormfe.hooks import MFE_APPS
+  @MFE_APPS.add()
+  def _add_my_mfe(mfes):
+      mfes["attendance"] = {
+          "repository": "https://github.com/rsuigh/frontend-app-attendance.git",
+          "port": 2029,
+          "version": "", # optional, will default to the Open edX current tag.
+      }
+  return mfes
+
