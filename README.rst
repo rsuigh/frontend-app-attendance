@@ -196,6 +196,7 @@ Add plugin
 **********
 
 .. code-block:: python 
+  
   from tutormfe.hooks import MFE_APPS
   @MFE_APPS.add()
   def _add_my_mfe(mfes):
