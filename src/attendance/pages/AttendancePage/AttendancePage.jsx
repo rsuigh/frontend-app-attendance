@@ -41,8 +41,8 @@ const AttendancePage = () => {
   const isCourseIdPresent = (courseId, data) => {
     const roles = data['roles']
     const result = roles.filter(role => role['course_id'] === courseId && role['role'] === 'instructor');
-    if (result) 
-      return true
+    if (result.length > 0) 
+      return true;
   }
 
 
