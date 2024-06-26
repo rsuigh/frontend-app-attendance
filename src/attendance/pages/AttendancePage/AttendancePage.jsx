@@ -15,12 +15,34 @@ const AttendancePage = () => {
   const { courseId } = useParams()
   const [isStructor, setIsStructor] = useState(false)
 
-  const { get, post, stringifyUrl } = utils;
+  const { get, post, stringifyUrl } = utils;\
+
+//   {
+//     "roles": [
+//         {
+//             "org": "SuirosProductions",
+//             "course_id": "course-v1:SuirosProductions+C01+2024_T1",
+//             "role": "instructor"
+//         },
+//         {
+//             "org": "SuirosProductions",
+//             "course_id": "course-v1:SuirosProductions+C01+2024_T1",
+//             "role": "staff"
+//         },
+//         {
+//             "org": "edX",
+//             "course_id": "course-v1:edX+DemoX+Demo_Course",
+//             "role": "staff"
+//         }
+//     ],
+//     "is_staff": true
+// }
 
   const isCourseIdPresent = (courseId, data) => {
-    for (let i = 0; i < data['roles'].length; i++)
-      if (data['roles'][i]['course_id'] === courseId && data['roles'][i]['role'] === 'instructor')
-        return true 
+    const roles = data['roles']
+    const result = roles.filter(role => role['course_id'] === courseId && role['role'] === 'instructor');
+    if (result) 
+      return true
   }
 
 
@@ -30,7 +52,7 @@ const AttendancePage = () => {
         try {
           const response = await get(getEnrollmentRoleUrl());
           console.log(response.data)
-          if (isCourseIdPresent(courseId ,response.data)) {
+          if (isCourseIdPresent(courseId, response.data)) {
             setIsStructor(true)
           }
           console.log(response)
