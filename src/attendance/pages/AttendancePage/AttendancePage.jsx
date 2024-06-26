@@ -17,18 +17,18 @@ const AttendancePage = () => {
 
   const { get, post, stringifyUrl } = utils;
 
-  const queryParams = {
-    'excluded_course_roles': ['staff'],
-
+  const isCourseIdPresent = (courseId, response) => {
+    return response.roles.some(role => role.course_id === courseId);
   }
-  
+
+
   useEffect(() => {
     // Define the async function
       const fetchData = async () => {
         try {
-          const response = await get(stringifyUrl(getEnrollmentRoleUrl(courseId), queryParams));
-          console.log(response)
-          if (response.data.is_staff) {
+          const response = await get(getEnrollmentRoleUrl());
+          console.log(isCourseIdPresent(response.data))
+          if (isCourseIdPresent(response.data)) {
             setIsStaff(true)
           }
           console.log(response)
