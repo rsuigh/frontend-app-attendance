@@ -15,7 +15,7 @@ const AttendancePage = () => {
   const { courseId } = useParams()
   const [isStructor, setIsStructor] = useState(false)
 
-  const { get, post, stringifyUrl } = utils;\
+  const { get, post, stringifyUrl } = utils;
 
 //   {
 //     "roles": [
