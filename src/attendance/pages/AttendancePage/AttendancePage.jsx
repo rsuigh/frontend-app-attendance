@@ -17,9 +17,9 @@ const AttendancePage = () => {
 
   const { get, post, stringifyUrl } = utils;
 
-  const isCourseIdPresent = (courseId, response) => {
-    for (let i = 0; i < response['roles'].length; i++)
-      if (response['roles'][i]['course_id'] === courseId && response['roles'][i]['role'] === 'instructor')
+  const isCourseIdPresent = (courseId, data) => {
+    for (let i = 0; i < data['roles'].length; i++)
+      if (data['roles'][i]['course_id'] === courseId && data['roles'][i]['role'] === 'instructor')
         return true 
   }
 
