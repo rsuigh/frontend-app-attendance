@@ -13,12 +13,14 @@ import * as utils from '../../data/services/lms/utils';
 
 const AttendancePage = () => {
   const { courseId } = useParams()
-  const [isStaff, setIsStaff] = useState(false)
+  const [isStructor, setIsStructor] = useState(false)
 
   const { get, post, stringifyUrl } = utils;
 
   const isCourseIdPresent = (courseId, response) => {
-    return response.roles.some(role => role.course_id === courseId);
+    for (let i = 0; i < response['roles'].length; i++)
+      if (response['roles'][i]['course_id'] === courseId && response['roles'][i]['role'] === 'instructor')
+        return true 
   }
 
 
@@ -27,9 +29,9 @@ const AttendancePage = () => {
       const fetchData = async () => {
         try {
           const response = await get(getEnrollmentRoleUrl());
-          console.log(isCourseIdPresent(response.data))
-          if (isCourseIdPresent(response.data)) {
-            setIsStaff(true)
+          console.log(response.data)
+          if (isCourseIdPresent(courseId ,response.data)) {
+            setIsStructor(true)
           }
           console.log(response)
         } catch (error) {
@@ -45,7 +47,7 @@ const AttendancePage = () => {
       <main>
         <Container className="py-5">
           <h2>Chamada</h2>
-          {!isStaff ? (<p>Você não tem acesso</p>) : (<CoursesList courseId={courseId}/>)}
+          {!isStructor ? (<p>Você não tem acesso</p>) : (<CoursesList courseId={courseId}/>)}
         </Container>
       </main>
   )
