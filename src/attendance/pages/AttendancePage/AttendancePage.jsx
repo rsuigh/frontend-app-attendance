@@ -17,12 +17,17 @@ const AttendancePage = () => {
 
   const { get, post, stringifyUrl } = utils;
 
+  const queryParams = {
+    'excluded_course_roles': ['staff'],
+
+  }
   
   useEffect(() => {
     // Define the async function
       const fetchData = async () => {
         try {
-          const response = await get(getEnrollmentRoleUrl(courseId));
+          const response = await get(stringifyUrl(getEnrollmentRoleUrl(courseId), queryParams));
+          console.log(response)
           if (response.data.is_staff) {
             setIsStaff(true)
           }

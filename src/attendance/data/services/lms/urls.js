@@ -6,6 +6,17 @@ import * as utils from './utils';
 const { get, post, stringifyUrl } = utils;
 const ATTENDANCE_URL='http://apps.local.edly.io:8009'
 
+// all params for query
+// [paramKeys.pageSize]: pageSize,
+// [paramKeys.userContains]: searchText,
+// [paramKeys.cohortId]: cohort,
+// [paramKeys.enrollmentMode]: track,
+// [paramKeys.courseGradeMax]: options.courseGradeMax,
+// [paramKeys.courseGradeMin]: options.courseGradeMin,
+// [paramKeys.excludedCourseRoles]: options.includeCourseRoleMembers ? null : ['all'],
+// [paramKeys.assignment]: options.assignment,
+// [paramKeys.assignmentGradeMax]: options.assignmentGradeMax,
+// [paramKeys.assignmentGradeMin]: options.assignmentGradeMin,
 
 // this queryParams excludes all users with roles
 const queryParams = {
