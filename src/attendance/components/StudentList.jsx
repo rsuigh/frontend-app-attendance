@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import * as utils from '../data/services/lms/utils';
 import { getEnrroledStudentListUrl, postAttendanceUrl } from '../data/services/lms/urls';
-import { Button, Col, Form } from '@openedx/paragon';
+import { Button, Col, Form, Alert} from '@openedx/paragon';
 
 // import hcjson from './response.JSON'
 
@@ -12,6 +12,8 @@ const StudentList = ({courseId}) => {
     const [list, setList] = useState([]);
     // const [list, setList] = useState(hcjson.results);
     const [loading, setLoading] = useState(true);
+    const [showAlert, setShowAlert] = useState(false)
+    const [showErrorAlert, setShowErrorAlert] = useState(false)
     const [studentsPresent, setStudentsPresent] = useState([])
 
     const handleStudentsPresent = (event, username) => {
@@ -49,17 +51,17 @@ const StudentList = ({courseId}) => {
             redirect: "follow"
         };
         fetch(postAttendanceUrl(), requestOptions)
-            .then((response) => response.text())
-            .then((result) => {
-                console.log(result)
-                setLoading(false)
-            })
-            .catch((error) => {
-                console.error(error)
-                setLoading(false)
-            });
-        
-
+            .then((response) => {
+                if (response.ok) {
+                    setShowAlert(true)
+                    setShowErrorAlert(false)
+                    setLoading(false)
+                } else {
+                    setShowErrorAlert(true)
+                    setShowAlert(false)
+                    setLoading(false)
+                }
+            })  
     } 
   
     useEffect(() => {
@@ -86,19 +88,45 @@ const StudentList = ({courseId}) => {
 
        
     }, [courseId]); // The empty dependency array means this effect runs once when the component mounts
+
+    const today = new Date();
+    const date = today.setDate(today.getDate())
+    const todayDate = new Date(date).toISOString().split("T")[0]
+
     
     return (
       <div>
+        {showAlert && <Alert 
+                        variant="success" 
+                        actions={[
+                            <Button onClick={() => setShowAlert(false)}>Fechar</Button>,
+                        ]} >
+            <Alert.Heading>Presença enviada</Alert.Heading>
+        </Alert>}
+        {showErrorAlert && <Alert 
+                        variant="danger" 
+                        actions={[
+                            <Button onClick={() => setShowErrorAlert(false)}>Fechar</Button>,
+                        ]} >
+            <Alert.Heading>Erro</Alert.Heading>
+        </Alert>}
+
         {loading ? (
           <p>Loading...</p>
         ) : (
             <Form onSubmit={onSubmit}>
                 <Form.Row>
                     <Form.Group as={Col}>
-                        <Form.Control name='date' type="date" floatingLabel="Data" className='mt-4'/>
+                        <Form.Control 
+                            name='date' 
+                            type="date" 
+                            floatingLabel="Data" 
+                            className='mt-4'
+                            value={todayDate}
+                        />
                     </Form.Group>
                     <Form.Group as={Col}>
-                        <Form.Control name='class_type' as="select" floatingLabel="Tipo de aula" className='mt-4'> 
+                        <Form.Control name='class_type' as="select" floatingLabel="Tipo de aula" className='mt-4' defaultValue={{ label: "Aula normal", value: "an" }}> 
                             <option value="an">Aula normal</option>
                             <option value="ar">Reposição</option>
                         </Form.Control>
@@ -133,6 +161,7 @@ const StudentList = ({courseId}) => {
                 <Button type='submit'>Enviar</Button>
             </Form>
         )}
+        
       </div>
     );
   };

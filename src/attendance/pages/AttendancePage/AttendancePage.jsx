@@ -50,12 +50,11 @@ const AttendancePage = () => {
     // Define the async function
       const fetchData = async () => {
         try {
+          setIsStructor(true)
           const response = await get(getEnrollmentRoleUrl());
-          console.log(response.data)
           if (isCourseIdPresent(courseId, response.data)) {
             setIsStructor(true)
           }
-          console.log(response)
         } catch (error) {
           console.error('Error fetching data:', error);
         }
