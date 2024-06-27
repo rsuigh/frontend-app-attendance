@@ -16,6 +16,23 @@ const StudentList = ({courseId}) => {
     const [showErrorAlert, setShowErrorAlert] = useState(false)
     const [studentsPresent, setStudentsPresent] = useState([])
 
+    // for development use this:
+    // const [studentsPresent, setStudentsPresent] = useState(
+    //     [
+    //         {
+    //             "username": "suigh2",
+    //             "present": false
+    //         },
+    //         {
+    //             "username": "suigh3",
+    //             "present": false
+    //         },
+    //         {
+    //             "username": "suigh4",
+    //             "present": false
+    //         }
+    //     ])
+    
     const handleStudentsPresent = (event, username) => {
         const newStudentsPresentList = studentsPresent?.map(student => {
             if (student.username == username) {
@@ -23,9 +40,17 @@ const StudentList = ({courseId}) => {
             }
             return student
         })
-        console.log(newStudentsPresentList)
         setStudentsPresent(newStudentsPresentList)
     }
+
+    const markAllCheckBoxes = () => {
+        const newStudentsPresentList = studentsPresent.map(student => ({
+            ...student,
+            present: true
+        }));
+        setStudentsPresent(newStudentsPresentList);
+    }
+
 
     
     
@@ -79,11 +104,14 @@ const StudentList = ({courseId}) => {
           }
         }
   
-      // Call the async function
-       fetchData().then((students) => {
-        setStudentsPresent(students?.map(student => {
-            return {username: student.username, present: false}
-           }))
+        // Call the async function
+        // use this when you developing
+        // fetchData()
+        // comment this when developing
+        fetchData().then((students) => {
+            setStudentsPresent(students?.map(student => {
+                return {username: student.username, present: false}
+            }))
        }); 
 
        
@@ -133,26 +161,15 @@ const StudentList = ({courseId}) => {
                     </Form.Group>
                 </Form.Row>
                 <p>Lista de estudantes</p>
-                <ul className='mt-4'>
-                    {/* <li> 
-                        <Form.Checkbox key='id_fulano' className="flex-column flex-sm-row" onChange={(event) => handleStudentsPresent(event, 'fulano')}>
-                            Fulano
-                        </Form.Checkbox>
-                    </li>
-                    <li> 
-                        <Form.Checkbox key='id_beltrano' className="flex-column flex-sm-row" onChange={(event) => handleStudentsPresent(event, 'beltrano')}>
-                            Beltrano
-                        </Form.Checkbox>
-                    </li>
-                    <li> 
-                        <Form.Checkbox key='id_zezinho' className="flex-column flex-sm-row" onChange={(event) => handleStudentsPresent(event, 'zezinho')}>
-                            Zezinho
-                        </Form.Checkbox>
-                    </li> */}
-                    
+                <Button onClick={() => markAllCheckBoxes()}>Marcar todos</Button>
+                <ul className='mt-4'>                    
                     {list.map(item => (
                         <li key={item.user_id}> 
-                            <Form.Checkbox className="flex-column flex-sm-row" onChange={(event) => handleStudentsPresent(event, item.username)}>
+                            <Form.Checkbox 
+                                className="flex-column flex-sm-row" 
+                                onChange={(event) => handleStudentsPresent(event, item.username)}
+                                checked={studentsPresent.find(student => student.username === item.username)?.present}
+                                >
                                 {item.username}
                             </Form.Checkbox>
                         </li>
