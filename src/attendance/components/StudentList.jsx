@@ -4,34 +4,34 @@ import * as utils from '../data/services/lms/utils';
 import { getEnrroledStudentListUrl, postAttendanceUrl, getEnrollmentRoleUrl } from '../data/services/lms/urls';
 import { Button, Col, Form, Alert} from '@openedx/paragon';
 
-import hcjson from './response.JSON'
+//import hcjson from './response.JSON'
 
 
 
 const StudentList = ({courseId}) => {
-    // const [list, setList] = useState([]);
-    const [list, setList] = useState(hcjson.results);
+    const [list, setList] = useState([]);
+    //const [list, setList] = useState(hcjson.results);
     const [loading, setLoading] = useState(true);
     const [showAlert, setShowAlert] = useState(false)
-    const [showErrorAlert, setShowErrorAlert] = useState(false)
-    //const [studentsPresent, setStudentsPresent] = useState([])
+    //const [showErrorAlert, setShowErrorAlert] = useState(false)
+    const [studentsPresent, setStudentsPresent] = useState([])
 
     // for development use this:
-    const [studentsPresent, setStudentsPresent] = useState(
-        [
-            {
-                "username": "suigh2",
-                "present": false
-            },
-            {
-                "username": "suigh3",
-                "present": false
-            },
-            {
-                "username": "suigh4",
-                "present": false
-            }
-        ])
+    // const [studentsPresent, setStudentsPresent] = useState(
+    //     [
+    //         {
+    //             "username": "suigh2",
+    //             "present": false
+    //         },
+    //         {
+    //             "username": "suigh3",
+    //             "present": false
+    //         },
+    //         {
+    //             "username": "suigh4",
+    //             "present": false
+    //         }
+    //     ])
     
     const handleStudentsPresent = (event, username) => {
         const newStudentsPresentList = studentsPresent?.map(student => {
@@ -118,13 +118,13 @@ const StudentList = ({courseId}) => {
   
         // Call the async function
         // use this when you developing
-         fetchData()
+        // fetchData()
         // comment this when developing
-    //     fetchData().then((students) => {
-    //         setStudentsPresent(students?.map(student => {
-    //             return {username: student.username, present: false}
-    //         }))
-    //    }); 
+        fetchData().then((students) => {
+            setStudentsPresent(students?.map(student => {
+                return {username: student.username, present: false}
+            }))
+       }); 
 
        
     }, [courseId]); // The empty dependency array means this effect runs once when the component mounts
