@@ -50,7 +50,6 @@ const AttendancePage = () => {
     // Define the async function
       const fetchData = async () => {
         try {
-          setIsStructor(true)
           const response = await get(getEnrollmentRoleUrl());
           if (isCourseIdPresent(courseId, response.data)) {
             setIsStructor(true)
