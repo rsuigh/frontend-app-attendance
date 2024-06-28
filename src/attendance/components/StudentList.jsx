@@ -13,7 +13,7 @@ const StudentList = ({courseId}) => {
     //const [list, setList] = useState(hcjson.results);
     const [loading, setLoading] = useState(true);
     const [showAlert, setShowAlert] = useState(false)
-    //const [showErrorAlert, setShowErrorAlert] = useState(false)
+    const [showErrorAlert, setShowErrorAlert] = useState(false)
     const [studentsPresent, setStudentsPresent] = useState([])
 
     // for development use this:
