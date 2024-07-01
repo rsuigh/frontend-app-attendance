@@ -1,6 +1,6 @@
 import queryString from 'query-string';
 
-import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
+import { getAuthenticatedHttpClient, getAuthenticatedUser } from '@edx/frontend-platform/auth';
 
 /**
  * get(url)
@@ -26,3 +26,10 @@ export const stringifyUrl = (url, query) => queryString.stringifyUrl(
   { url, query },
   { skipNull: true, skipEmptyString: true },
 );
+
+/**
+ * get(url)
+ * simple wrapper providing current userData
+ * @param {string} url - target url
+ */
+export const getUser = (...args) => getAuthenticatedUser().get(...args);

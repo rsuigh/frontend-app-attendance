@@ -13,7 +13,7 @@ import * as utils from '../../data/services/lms/utils';
 
 const AttendancePage = () => {
   const { courseId } = useParams()
-  const [isStructor, setIsStructor] = useState(false)
+  const [isInstructor, setIsInstructor] = useState(false)
 
   const { get, post, stringifyUrl } = utils;
 
@@ -38,7 +38,7 @@ const AttendancePage = () => {
 //     "is_staff": true
 // }
 
-  const isCourseIdPresent = (courseId, data) => {
+  const isUserInstructor = (courseId, data) => {
     const roles = data['roles']
     const result = roles.filter(role => role['course_id'] === courseId && role['role'] === 'instructor');
     if (result.length > 0) 
@@ -51,8 +51,8 @@ const AttendancePage = () => {
       const fetchData = async () => {
         try {
           const response = await get(getEnrollmentRoleUrl());
-          if (isCourseIdPresent(courseId, response.data)) {
-            setIsStructor(true)
+          if (isUserInstructor(courseId, response.data)) {
+            setIsInstructor(true)
           }
         } catch (error) {
           console.error('Error fetching data:', error);
@@ -67,7 +67,7 @@ const AttendancePage = () => {
       <main>
         <Container className="py-5">
           <h2>Chamada</h2>
-          {!isStructor ? (<p>Você não tem acesso</p>) : (<CoursesList courseId={courseId}/>)}
+          {!isInstructor ? (<p>Você não tem acesso</p>) : (<CoursesList courseId={courseId}/>)}
         </Container>
       </main>
   )

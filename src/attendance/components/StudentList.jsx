@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 import * as utils from '../data/services/lms/utils';
-import { getEnrroledStudentListUrl, postAttendanceUrl, getEnrollmentRoleUrl } from '../data/services/lms/urls';
+import { getEnrroledStudentListUrl, postAttendanceUrl } from '../data/services/lms/urls';
 import { Button, Col, Form, Alert} from '@openedx/paragon';
+import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
+
 
 //import hcjson from './response.JSON'
 
@@ -52,23 +54,17 @@ const StudentList = ({courseId}) => {
     }
 
     
-    const getUser = async () => {
-        try {
-            const response = await get(getEnrollmentRoleUrl());
-            console.log(response)
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
+    
 
      
     
     
-    const { get, post, stringifyUrl } = utils;
+    const { get, post, stringifyUrl} = utils;
+
 
     const onSubmit = async (event) => {
         event.preventDefault()
-        getUser()
+        
         const formData = new FormData(event.target)
         const data = {}
         data['course_id'] = courseId.courseId
@@ -76,7 +72,7 @@ const StudentList = ({courseId}) => {
             data[key] = value
         }
         data['students_attendance'] = studentsPresent
-        console.log(data)
+        data['user'] = getAuthenticatedUser().userId
         setLoading(true)
 
         const myHeaders = new Headers();
