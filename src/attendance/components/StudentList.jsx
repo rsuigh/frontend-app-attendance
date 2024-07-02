@@ -90,6 +90,7 @@ const StudentList = ({courseId}) => {
                     setShowErrorAlert(false)
                     setLoading(false)
                 } else {
+                    console.log("entrou aqui")
                     setShowErrorAlert(true)
                     setShowAlert(false)
                     setLoading(false)
