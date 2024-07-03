@@ -85,19 +85,17 @@ const StudentList = ({courseId}) => {
         };
         fetch(postAttendanceUrl(), requestOptions)
             .then((response) => {
-                if (response.ok) {
-                    setShowAlert(true)
-                    setShowErrorAlert(false)
-                    setLoading(false)
-                } else {
-                    console.log("entrou aqui")
-                    setShowErrorAlert(true)
-                    setShowAlert(false)
-                    setLoading(false)
-                }
+                setShowAlert(true)
+                setShowErrorAlert(false)
             })
             .catch(error => {
+                console.log("entrou aqui")
+                setShowErrorAlert(true)
+                setShowAlert(false)
                 console.log(error)
+            })
+            .finally(() =>{
+                setLoading(false)
             })  
     } 
   

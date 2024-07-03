@@ -13,7 +13,9 @@ import * as utils from '../../data/services/lms/utils';
 
 const AttendancePage = () => {
   const { courseId } = useParams()
-  const [isInstructor, setIsInstructor] = useState(false)
+  const [isInstructor, setIsInstructor] = useState(false)    
+  const [isLoading, setIsLoading] = useState(true);
+
 
   const { get, post, stringifyUrl } = utils;
 
@@ -56,6 +58,8 @@ const AttendancePage = () => {
           }
         } catch (error) {
           console.error('Error fetching data:', error);
+        } finally {
+          setIsLoading(false)
         }
       }
 
@@ -66,8 +70,11 @@ const AttendancePage = () => {
   return(
       <main>
         <Container className="py-5">
-          <h2>Chamada</h2>
-          {!isInstructor ? (<p>Você não tem acesso</p>) : (<CoursesList courseId={courseId}/>)}
+          {isLoading ? ("Carregando") : (<>
+            <h2>Chamada</h2>
+            {!isInstructor ? (<p>Você não tem acesso</p>) : (<CoursesList courseId={courseId}/>)}
+          </>)}
+          
         </Container>
       </main>
   )
