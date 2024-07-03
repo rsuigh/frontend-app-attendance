@@ -95,6 +95,9 @@ const StudentList = ({courseId}) => {
                     setShowAlert(false)
                     setLoading(false)
                 }
+            })
+            .catch(error => {
+                console.log(error)
             })  
     } 
   
