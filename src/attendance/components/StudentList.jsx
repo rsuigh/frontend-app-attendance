@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import * as utils from '../data/services/lms/utils';
 import { getEnrroledStudentListUrl, postAttendanceUrl } from '../data/services/lms/urls';
@@ -17,7 +17,12 @@ const StudentList = ({courseId}) => {
     const [showAlert, setShowAlert] = useState(false)
     const [showErrorAlert, setShowErrorAlert] = useState(false)
     const [studentsPresent, setStudentsPresent] = useState([])
-
+    
+    const { get, post, stringifyUrl} = utils;
+    
+    const today = new Date();
+    const date = today.setDate(today.getDate())
+    const todayDate = new Date(date).toISOString().split("T")[0]
     // for development use this:
     // const [studentsPresent, setStudentsPresent] = useState(
     //     [
@@ -53,15 +58,6 @@ const StudentList = ({courseId}) => {
         setStudentsPresent(newStudentsPresentList);
     }
 
-    
-    
-
-     
-    
-    
-    const { get, post, stringifyUrl} = utils;
-
-
     const onSubmit = async (event) => {
         event.preventDefault()
         
@@ -84,15 +80,13 @@ const StudentList = ({courseId}) => {
             redirect: "follow"
         };
         fetch(postAttendanceUrl(), requestOptions)
-            .then((response) => {
+            .then(() => {
                 setShowAlert(true)
                 setShowErrorAlert(false)
             })
             .catch(error => {
-                console.log("entrou aqui")
                 setShowErrorAlert(true)
                 setShowAlert(false)
-                console.log(error)
             })
             .finally(() =>{
                 setLoading(false)
@@ -114,24 +108,13 @@ const StudentList = ({courseId}) => {
           }
         }
   
-        // Call the async function
-        // use this when you developing
-        // fetchData()
-        // comment this when developing
         fetchData().then((students) => {
             setStudentsPresent(students?.map(student => {
                 return {username: student.username, present: false}
             }))
        }); 
-
-       
     }, [courseId]); // The empty dependency array means this effect runs once when the component mounts
 
-    const today = new Date();
-    const date = today.setDate(today.getDate())
-    const todayDate = new Date(date).toISOString().split("T")[0]
-
-    
     return (
       <div>
         {showAlert && <Alert 
@@ -160,7 +143,7 @@ const StudentList = ({courseId}) => {
                             type="date" 
                             floatingLabel="Data" 
                             className='mt-4'
-                            value={todayDate}
+                            defaultValue={todayDate}
                         />
                     </Form.Group>
                     <Form.Group as={Col}>
