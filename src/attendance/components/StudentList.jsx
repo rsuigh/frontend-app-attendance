@@ -81,11 +81,10 @@ const StudentList = ({courseId}) => {
         };
         fetch(postAttendanceUrl(), requestOptions)
             .then((response) => {
+                debugger
                 if (!response.ok){
-                    console.log("response not ok")
                     setShowErrorAlert(true)
                     setShowAlert(false)
-                    console.log(response)
                 } else {
                     setShowAlert(true)
                     setShowErrorAlert(false)
@@ -136,7 +135,7 @@ const StudentList = ({courseId}) => {
                         actions={[
                             <Button onClick={() => setShowErrorAlert(false)}>Fechar</Button>,
                         ]} >
-            <Alert.Heading>Erro</Alert.Heading>
+            <Alert.Heading>Erro. Entre em contato com o administrador do sistema</Alert.Heading>
         </Alert>}
 
         {loading ? (
