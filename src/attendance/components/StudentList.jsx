@@ -86,9 +86,10 @@ const StudentList = ({courseId}) => {
                     setShowErrorAlert(true)
                     setShowAlert(false)
                     console.log(response)
+                } else {
+                    setShowAlert(true)
+                    setShowErrorAlert(false)
                 }
-                setShowAlert(true)
-                setShowErrorAlert(false)
             })
             .catch(error => {
                 setShowErrorAlert(true)
