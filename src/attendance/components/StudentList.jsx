@@ -80,7 +80,13 @@ const StudentList = ({courseId}) => {
             redirect: "follow"
         };
         fetch(postAttendanceUrl(), requestOptions)
-            .then(() => {
+            .then((response) => {
+                if (!response.ok){
+                    console.log("response not ok")
+                    setShowErrorAlert(true)
+                    setShowAlert(false)
+                    console.log(response)
+                }
                 setShowAlert(true)
                 setShowErrorAlert(false)
             })
