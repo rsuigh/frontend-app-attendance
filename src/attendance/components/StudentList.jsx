@@ -73,7 +73,7 @@ const StudentList = ({courseId}) => {
 
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer "+process.env.AUTH_ATTENDANCE_TOKEN)
+        myHeaders.append("Authorization", "Bearer oYPU8pdfTedI7Gq3rXAJfq9si37htQ")
         const requestOptions = {
             method: "POST",
             headers: myHeaders,
