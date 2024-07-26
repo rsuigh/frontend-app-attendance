@@ -4,6 +4,7 @@ import * as utils from '../data/services/lms/utils';
 import { getEnrroledStudentListUrl, postAttendanceUrl } from '../data/services/lms/urls';
 import { Button, Col, Form, Alert} from '@openedx/paragon';
 import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
+import client from '../data/services/lms/client';
 
 
 //import hcjson from './response.JSON'
@@ -71,16 +72,7 @@ const StudentList = ({courseId}) => {
         data['user'] = getAuthenticatedUser().userId
         setLoading(true)
 
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer oYPU8pdfTedI7Gq3rXAJfq9si37htQ")
-        const requestOptions = {
-            method: "POST",
-            headers: myHeaders,
-            body: JSON.stringify(data),
-            redirect: "follow"
-        };
-        fetch(postAttendanceUrl(), requestOptions)
+        client('POST', data, postAttendanceUrl())
             .then((response) => {
                 debugger
                 if (!response.ok){
