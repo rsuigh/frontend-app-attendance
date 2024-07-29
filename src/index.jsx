@@ -2,7 +2,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 import {
-  APP_INIT_ERROR, APP_READY, subscribe, initialize,
+  APP_INIT_ERROR, APP_READY, subscribe, initialize, mergeConfig,
 } from '@edx/frontend-platform';
 import { AppProvider, ErrorPage } from '@edx/frontend-platform/react';
 
@@ -42,7 +42,6 @@ subscribe(APP_INIT_ERROR, (error) => {
 initialize({
   handlers: {
     config: () => {
-      debugger
       mergeConfig({
         ATTENDANCE_TOKEN: process.env.ATTENDANCE_TOKEN || null,
         ATTENDANCE_URL: process.env.ATTENDANCE_URL || null,
