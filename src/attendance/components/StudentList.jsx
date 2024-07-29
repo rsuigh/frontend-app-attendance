@@ -59,7 +59,6 @@ const StudentList = ({courseId}) => {
         setStudentsPresent(newStudentsPresentList);
     }
 
-    console.log(postAttendanceUrl())
 
     const onSubmit = async (event) => {
         event.preventDefault()

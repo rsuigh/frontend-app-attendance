@@ -4,7 +4,6 @@ import * as utils from './utils';
 
 
 const { get, post, stringifyUrl } = utils;
-// const ATTENDANCE_URL='http://apps.local.edly.io:8009'
 
 // all params for query
 // [paramKeys.pageSize]: pageSize,
