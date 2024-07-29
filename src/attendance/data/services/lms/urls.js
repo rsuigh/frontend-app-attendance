@@ -1,10 +1,10 @@
-import { getConfig } from '../../../config';
+import { getConfig } from '@edx/frontend-platform';
 
 import * as utils from './utils';
 
 
 const { get, post, stringifyUrl } = utils;
-const ATTENDANCE_URL='http://apps.local.edly.io:8009'
+// const ATTENDANCE_URL='http://apps.local.edly.io:8009'
 
 // all params for query
 // [paramKeys.pageSize]: pageSize,
@@ -26,7 +26,7 @@ const queryParams = {
 
 // here you define your urls 
 export const getUrlPrefix = () => `${getConfig().LMS_BASE_URL}/api/`;
-export const getAttendancePrefix = () => `${ATTENDANCE_URL}/api/`
+export const getAttendancePrefix = () => `${getConfig().ATTENDANCE_URL}/api/`
 export const getGradesUrl = () => `${getUrlPrefix()}grades/v1/`;
 export const getEnrollmentRoleUrl = () => `${getUrlPrefix()}enrollment/v1/roles/`;
 export const getEnrollmentRoleCourseUrl = (course_id) => `${getUrlPrefix()}enrollment/v1/roles/?course_id=${course_id}`;
