@@ -59,9 +59,9 @@ const StudentList = ({courseId}) => {
         setStudentsPresent(newStudentsPresentList);
     }
 
+
     const onSubmit = async (event) => {
         event.preventDefault()
-        
         const formData = new FormData(event.target)
         const data = {}
         data['course_id'] = courseId.courseId
@@ -71,7 +71,6 @@ const StudentList = ({courseId}) => {
         data['students_attendance'] = studentsPresent
         data['user'] = getAuthenticatedUser().userId
         setLoading(true)
-
         client('POST', data, postAttendanceUrl())
             .then((response) => {
                 debugger
@@ -89,8 +88,8 @@ const StudentList = ({courseId}) => {
             })
             .finally(() =>{
                 setLoading(false)
-            })  
-    } 
+            })
+    }
   
     useEffect(() => {
       // Define the async function
