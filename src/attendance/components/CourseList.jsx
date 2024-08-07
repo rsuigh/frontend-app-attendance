@@ -14,4 +14,4 @@ const CoursesList = (courseId) => {
     );
   };
   
-  export default CoursesList;
+export default CoursesList;

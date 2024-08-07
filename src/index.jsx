@@ -13,6 +13,7 @@ import Header from '@edx/frontend-component-header';
 import Footer from '@edx/frontend-component-footer';
 import messages from './i18n';
 import AttendancePage from './attendance/pages/AttendancePage/AttendancePage';
+import HistoryPage from './attendance/pages/HistoryPage/HistoryPage';
 
 import './index.scss';
 
@@ -26,6 +27,10 @@ subscribe(APP_READY, () => {
           <Route
             path="/:courseId"
             element={<AttendancePage />}
+          /> 
+          <Route
+            path="/history/:courseId"
+            element={<HistoryPage />}
           /> 
         </Routes>
       <Footer />

@@ -12,7 +12,8 @@ const client = (method, data=null, url) => {
     };
     if (data) {
         requestOptions['body'] = JSON.stringify(data)
+        return fetch(url, requestOptions)
     }
-    return fetch(url, requestOptions)
+    return fetch(url)
 }
 export default client
