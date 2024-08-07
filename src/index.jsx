@@ -29,7 +29,7 @@ subscribe(APP_READY, () => {
             element={<AttendancePage />}
           /> 
           <Route
-            path="/history/:courseId"
+            path="/:courseId/history"
             element={<HistoryPage />}
           /> 
         </Routes>

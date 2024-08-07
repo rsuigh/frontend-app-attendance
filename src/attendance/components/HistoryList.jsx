@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { Button, DataTable } from '@openedx/paragon';
+import { DataTable, TextFilter, Badge } from '@openedx/paragon';
 
 import { getAttendanceUrl } from '../data/services/lms/urls';
 import client from '../data/services/lms/client';
@@ -9,95 +9,85 @@ import client from '../data/services/lms/client';
 
 
 const HistoryList = () => {
-  const [showAlert, setShowAlert] = useState(false)
-  const [showErrorAlert, setShowErrorAlert] = useState(false)
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState([
-    {
-        "id": 1,
-        "user": 5,
-        "students_attendance": [
-            {
-                "present": true,
-                "username": "suigh"
-            },
-            {
-              "present": false,
-              "username": "suiro"
-          }
-        ],
-        "date": "2024-08-06",
-        "class_type": "an",
-        "course_id": "course-v1:edX+DemoX+Demo_Course"
-    },
-    {
-      "id": 2,
-      "user": 5,
-      "students_attendance": [
-          {
-              "present": true,
-              "username": "suigh"
-          },
-          {
-            "present": false,
-            "username": "suiro"
-        }
-      ],
-      "date": "2024-08-07",
-      "class_type": "an",
-      "course_id": "course-v1:edX+DemoX+Demo_Course"
-  }
-]);
+  const [data, setData] = useState([]);
+  const [columns, setColumns] = useState([])
+
+
+  useEffect(() => {
+    client('GET', null, getAttendanceUrl())
+      .then((response) => {
+        return response.json()
+      })
+      .then((r) => {
+        const attendanceMap = {};
+        r.forEach(session => {
+          session.students_attendance.forEach(student => {
+            if (!attendanceMap[student.username]) {
+              attendanceMap[student.username] = { username: student.username };
+            }
+            attendanceMap[student.username][session.date] = student.present ? "Presente" : "Ausente";
+          });
+        });
+        setData(Object.values(attendanceMap))
+        setColumns([
+          { id: "username", key: "username", label: "Nome" },
+          ...r.map((session) => ({ id: session.date, key: session.date, label: session.date }))
+        ])
+
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }, [])
 
 
 
-  // client('GET', null, getAttendanceUrl())
-  //   .then((response) => {
-  //       return response.json()
-  //   })
-  //   .then((response) => {
-  //     setData(response)
-  //   })
-
-
-
-    return (
-      <div>
+  return (
+    <div>
+      {loading ? (<p>Carregando...</p>) : (
         <DataTable
-          isPaginated
-          initialState={{
-            pageSize: 2,
-          }}
           isFilterable
           isSortable
+          defaultColumnValues={{ Filter: TextFilter }}
           itemCount={data.length}
           data={data}
-          columns={[
+          columns={columns.map((item, i) => (
             {
-              id: 'name',
-              Header: 'Nome',
-              Cell: ({ row }) => {console.log(row); return row.original.students_attendance[0].username},
-            },
-            {
-              id: 'date',
-              Header: data[0]['date'],
+              id: i + item.id,
+              Header: item.label == "Nome" ? item.label : new Intl.DateTimeFormat('pt-br').format(new Date(item.label)),
               Cell: ({ row }) => {
-                if (row.original.students_attendance[0].present) {
-                  return "Presente"
+                if (row['original'][item.id] == "Presente") {
+                  return (
+                    <Badge variant={'success'}>
+                      {row['original'][item.id] ? row['original'][item.id] : "-"}
+                    </Badge>
+                  )
+                } else if (row['original'][item.id] == "Ausente") {
+                  return (
+                    <Badge variant={'danger'}>
+                      {row['original'][item.id] ? row['original'][item.id] : "-"}
+                    </Badge>
+                  )
                 } else {
-                  return "Faltou"
+                  return (
+                    row['original'][item.id] ? row['original'][item.id] : "-"
+                  )
                 }
-              },
+              }
             }
-          ]}
+          ))}
+
         >
           <DataTable.TableControlBar />
           <DataTable.Table />
           <DataTable.EmptyTable content="No results found" />
-          <DataTable.TableFooter />
-        </DataTable>
-      </div>
-    );
-  };
-  
+        </DataTable >
+      )
+      }
+
+    </div >
+  );
+};
+
 export default HistoryList;
