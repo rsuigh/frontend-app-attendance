@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { DataTable, TextFilter, Badge } from '@openedx/paragon';
+import { useParams } from 'react-router-dom';
 
 import { getAttendanceUrl } from '../data/services/lms/urls';
 import client from '../data/services/lms/client';
@@ -9,13 +10,15 @@ import client from '../data/services/lms/client';
 
 
 const HistoryList = () => {
+  const { courseId } = useParams()
+
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [columns, setColumns] = useState([])
 
 
   useEffect(() => {
-    client('GET', null, getAttendanceUrl())
+    client('GET', null, getAttendanceUrl(courseId))
       .then((response) => {
         return response.json()
       })

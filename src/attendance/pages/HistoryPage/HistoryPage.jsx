@@ -2,6 +2,7 @@ import { Container } from '@openedx/paragon';
 import HistoryList from '../../components/HistoryList';
 import { getEnrollmentRoleUrl } from '../../data/services/lms/urls'
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 
 
@@ -10,7 +11,8 @@ import React, { useEffect, useState } from 'react';
 
 
 const HistoryPage = () => {
-  
+  const { courseId } = useParams()
+
   return(
       <main>
         <Container className="py-5">
