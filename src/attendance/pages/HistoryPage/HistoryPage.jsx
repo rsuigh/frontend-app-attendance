@@ -12,14 +12,6 @@ import * as utils from '../../data/services/lms/utils';
 
 
 const HistoryPage = () => {
-  const { courseId } = useParams()
-  const [isInstructor, setIsInstructor] = useState(false)    
-  const [isLoading, setIsLoading] = useState(true);
-
-
-  const { get, post, stringifyUrl } = utils;
-
-  
   
   return(
       <main>
