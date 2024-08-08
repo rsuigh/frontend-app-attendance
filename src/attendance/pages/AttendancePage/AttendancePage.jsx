@@ -14,7 +14,7 @@ const AttendancePage = () => {
       <Container className="py-5">
         <div>
           <h2>Chamada</h2>
-          <Link to="/:courseId/history">
+          <Link to={`/${courseId}/history`}>
             Histórico
           </Link>
         </div>
