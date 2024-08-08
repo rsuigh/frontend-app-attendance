@@ -16,6 +16,7 @@ import AttendancePage from './attendance/pages/AttendancePage/AttendancePage';
 import HistoryPage from './attendance/pages/HistoryPage/HistoryPage';
 
 import './index.scss';
+import PrivateRoute from './attendance/routes/PrivateRoute';
 
 
 subscribe(APP_READY, () => {
@@ -26,11 +27,11 @@ subscribe(APP_READY, () => {
         <Routes>
           <Route
             path="/:courseId"
-            element={<AttendancePage />}
+            element={<PrivateRoute component={AttendancePage}></PrivateRoute>}
           /> 
           <Route
             path="/:courseId/history"
-            element={<HistoryPage />}
+            element={<PrivateRoute component={HistoryPage}></PrivateRoute>}
           /> 
         </Routes>
       <Footer />
