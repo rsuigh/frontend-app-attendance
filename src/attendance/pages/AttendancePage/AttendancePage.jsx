@@ -1,6 +1,8 @@
 import { Container } from '@openedx/paragon';
 import CoursesList from '../../components/CourseList';
 import React from 'react';
+import { useParams } from 'react-router-dom';
+
 
 
 const AttendancePage = () => {
