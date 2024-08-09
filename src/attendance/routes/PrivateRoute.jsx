@@ -8,8 +8,6 @@ import { useParams } from 'react-router-dom';
 
 const PrivateRoute = ({ component: Component }) => {
     const { courseId } = useParams()
-    console.log(courseId)
-
     const [isInstructor, setIsInstructor] = useState(false)    
     const [isLoading, setIsLoading] = useState(true);
 
