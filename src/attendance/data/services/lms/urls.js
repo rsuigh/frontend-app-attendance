@@ -33,7 +33,7 @@ export const getEnrollmentRoleCourseUrl = (course_id) => `${getUrlPrefix()}enrol
 export const getEnrroledStudentListUrl = (course_id) => stringifyUrl(`${getGradesUrl()}gradebook/${course_id}/`, queryParams);
 export const getCourseList = () => `${getUrlPrefix()}courses/v1/courses/`;
 export const postAttendanceUrl = () => `${getAttendancePrefix()}attendance/`
-export const getAttendanceUrl = (course_id) => `${getAttendancePrefix()}attendance/?course_id=${course_id}/`
+export const getAttendanceUrl = (course_id) => `${getAttendancePrefix()}attendance/?course_id=${course_id}`
 
 
 
