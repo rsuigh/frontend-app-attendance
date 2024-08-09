@@ -21,7 +21,7 @@ const { get, post, stringifyUrl } = utils;
 const queryParams = {
     'excluded_course_roles': ['all'],
   };
-const ATTENDANCE_URL='http://localhost:8009'
+const ATTENDANCE_URL='http://apps.local.edly.io/8009'
 
 
 // here you define your urls 
