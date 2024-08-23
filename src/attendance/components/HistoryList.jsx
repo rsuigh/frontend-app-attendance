@@ -29,13 +29,19 @@ const HistoryList = () => {
             if (!attendanceMap[student.username]) {
               attendanceMap[student.username] = { username: student.username };
             }
-            attendanceMap[student.username][session.date] = student.present ? "✓" : "X";
+            const columnKey = `${session.date} (${session.class_type[1]})`;
+            attendanceMap[student.username][columnKey] = student.present ? "✓" : "X";
           });
         });
         setData(Object.values(attendanceMap))
+        console.log(Object.values(attendanceMap))
         setColumns([
           { id: "username", key: "username", label: "Nome" },
-          ...r.map((session) => ({ id: session.date, key: session.date, label: session.date }))
+          ...r.map((session) => ({
+            id: `${session.date} (${session.class_type[1]})`,
+            key: `${session.date} (${session.class_type[1]})`,
+            label: `${session.date} (${session.class_type[1]})`
+          }))
         ])
 
       })
@@ -43,7 +49,6 @@ const HistoryList = () => {
         setLoading(false)
       })
   }, [])
-
 
 
 
@@ -61,7 +66,7 @@ const HistoryList = () => {
             columns={columns.map((item, i) => (
               {
                 id: i + item.id,
-                Header: item.label == "Nome" ? item.label : new Intl.DateTimeFormat('pt-br').format(new Date(item.label)),
+                Header: item.label == "Nome" ? item.label : new Intl.DateTimeFormat('pt-br').format(new Date(item.label)) + " (" + item.label.split(" ")[1][1] + ")",
                 Cell: ({ row }) => {
                   if (row['original'][item.id] == "✓") {
                     return (
@@ -91,7 +96,10 @@ const HistoryList = () => {
         </Scrollable>
       )
       }
-
+      <div>
+        <a>n = aula normal </a>
+        <a>r = aula de reposição</a>
+      </div>
     </div >
   );
 };
