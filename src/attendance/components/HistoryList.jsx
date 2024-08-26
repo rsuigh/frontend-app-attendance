@@ -37,7 +37,6 @@ const HistoryList = () => {
         Object.entries(r['attendance_percentage']).forEach(([key, value]) => {
           attendanceMap[key]['Porcentagem'] = value;
         })
-        console.log(attendanceMap)
         setData(Object.values(attendanceMap))
         setColumns([
           { id: "username", key: "username", label: "Nome" },
@@ -89,13 +88,15 @@ const HistoryList = () => {
                     if (row['original'][item.label] >= 70) {
                       return (
                         <Badge variant={'success'}>
-                          row['original'][item.label] ? row['original'][item.label]+"%" : "-"
+                          {row['original'][item.label] ? row['original'][item.label] + "%" : "-"}
                         </Badge>
                       )
                     } else {
-                      <Badge variant={'danger'}>
-                        row['original'][item.label] ? row['original'][item.label]+"%" : "-"
-                      </Badge>
+                      return (
+                        <Badge variant={'danger'}>
+                          {row['original'][item.label] ? row['original'][item.label] + "%" : "-"}
+                        </Badge>
+                      )
                     }
 
                   } else {
