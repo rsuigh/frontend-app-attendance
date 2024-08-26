@@ -24,20 +24,25 @@ const HistoryList = () => {
       })
       .then((r) => {
         const attendanceMap = {};
-        r.forEach(session => {
+        r['attendance_records'].forEach(session => {
           session.students_attendance.forEach(student => {
             if (!attendanceMap[student.username]) {
               attendanceMap[student.username] = { username: student.username };
             }
             const columnKey = `${session.date} (${session.class_type[1]})`;
             attendanceMap[student.username][columnKey] = student.present ? "✓" : "X";
+            attendanceMap[student.username]['Porcentagem'] = '';
           });
         });
+        Object.entries(r['attendance_percentage']).forEach(([key, value]) => {
+          attendanceMap[key]['Porcentagem'] = value;
+        })
+        console.log(attendanceMap)
         setData(Object.values(attendanceMap))
-        console.log(Object.values(attendanceMap))
         setColumns([
           { id: "username", key: "username", label: "Nome" },
-          ...r.map((session) => ({
+          { id: "percentage", key: "percentage", label: "Porcentagem" },
+          ...r['attendance_records'].map((session) => ({
             id: `${session.date} (${session.class_type[1]})`,
             key: `${session.date} (${session.class_type[1]})`,
             label: `${session.date} (${session.class_type[1]})`
@@ -66,7 +71,7 @@ const HistoryList = () => {
             columns={columns.map((item, i) => (
               {
                 id: i + item.id,
-                Header: item.label == "Nome" ? item.label : new Intl.DateTimeFormat('pt-br').format(new Date(item.label)) + " (" + item.label.split(" ")[1][1] + ")",
+                Header: item.label == "Nome" || item.label == "Porcentagem" ? item.label : new Intl.DateTimeFormat('pt-br').format(new Date(item.label)) + " (" + item.label.split(" ")[1][1] + ")",
                 Cell: ({ row }) => {
                   if (row['original'][item.id] == "✓") {
                     return (
@@ -79,6 +84,11 @@ const HistoryList = () => {
                       <Badge variant={'danger'}>
                         {row['original'][item.id] ? row['original'][item.id] : "-"}
                       </Badge>
+                    )
+                  } else if (typeof row['original'][item.label] === 'number') {
+                    console.log(row['original'][item.label])
+                    return (
+                      row['original'][item.label] ? row['original'][item.label]+"%" : "-"
                     )
                   } else {
                     return (
