@@ -86,10 +86,18 @@ const HistoryList = () => {
                       </Badge>
                     )
                   } else if (typeof row['original'][item.label] === 'number') {
-                    console.log(row['original'][item.label])
-                    return (
-                      row['original'][item.label] ? row['original'][item.label]+"%" : "-"
-                    )
+                    if (row['original'][item.label] >= 70) {
+                      return (
+                        <Badge variant={'success'}>
+                          row['original'][item.label] ? row['original'][item.label]+"%" : "-"
+                        </Badge>
+                      )
+                    } else {
+                      <Badge variant={'danger'}>
+                        row['original'][item.label] ? row['original'][item.label]+"%" : "-"
+                      </Badge>
+                    }
+
                   } else {
                     return (
                       row['original'][item.id] ? row['original'][item.id] : "-"
