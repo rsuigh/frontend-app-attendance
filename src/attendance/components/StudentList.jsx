@@ -28,7 +28,7 @@ const StudentList = ({courseId}) => {
     const date = today.setDate(today.getDate())
     const todayDate = new Date(date).toISOString().split("T")[0]
 
-    console.log(getEnrollmentStudentDateJoinedUrl("course-v1:SuirosProductions+C01+2024_T1", "suigh"))
+    
     // for development use this:
     // const [studentsPresent, setStudentsPresent] = useState(
     //     [
@@ -101,6 +101,8 @@ const StudentList = ({courseId}) => {
         const fetchData = async () => {
           try {
               const response = await get(getEnrroledStudentListUrl(courseId.courseId));
+              const response2 = await get(getEnrollmentStudentDateJoinedUrl(courseId.courseId, "suigh"));
+              console.log("DATA REPONSE2: "+response2.data);
               setList(response.data.results);
               setLoading(false)
               return response.data.results
