@@ -30,6 +30,8 @@ export const getAttendancePrefix = () => `${ATTENDANCE_URL}/api/`
 export const getGradesUrl = () => `${getUrlPrefix()}grades/v1/`;
 export const getEnrollmentRoleUrl = () => `${getUrlPrefix()}enrollment/v1/roles/`;
 export const getEnrollmentRoleCourseUrl = (course_id) => `${getUrlPrefix()}enrollment/v1/roles/?course_id=${course_id}`;
+export const getEnrollmentStudentDateJoinedUrl = (username, course_id) => 
+  `${getUrlPrefix()}enrollment/v1/enrollments?course_id=${course_id.replace("+", "%2B")}&username=${username}`;
 export const getEnrroledStudentListUrl = (course_id) => stringifyUrl(`${getGradesUrl()}gradebook/${course_id}/`, queryParams);
 export const getCourseList = () => `${getUrlPrefix()}courses/v1/courses/`;
 export const postAttendanceUrl = () => `${getAttendancePrefix()}attendance/`

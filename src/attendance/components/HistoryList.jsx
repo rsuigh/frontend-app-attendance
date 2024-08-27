@@ -85,7 +85,7 @@ const HistoryList = () => {
                       </Badge>
                     )
                   } else if (typeof row['original'][item.label] === 'number') {
-                    if (row['original'][item.label] >= 70) {
+                    if (row['original'][item.label] >= 90) {
                       return (
                         <Badge variant={'success'}>
                           {row['original'][item.label] ? row['original'][item.label] + "%" : "-"}

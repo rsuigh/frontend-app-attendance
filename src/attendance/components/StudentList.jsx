@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import * as utils from '../data/services/lms/utils';
-import { getEnrroledStudentListUrl, postAttendanceUrl } from '../data/services/lms/urls';
+import { getEnrroledStudentListUrl, 
+    postAttendanceUrl, 
+    getEnrollmentStudentDateJoinedUrl 
+} from '../data/services/lms/urls';
 import { Button, Col, Form, Alert} from '@openedx/paragon';
 import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
 import client from '../data/services/lms/client';
@@ -24,6 +27,8 @@ const StudentList = ({courseId}) => {
     const today = new Date();
     const date = today.setDate(today.getDate())
     const todayDate = new Date(date).toISOString().split("T")[0]
+
+    console.log(getEnrollmentStudentDateJoinedUrl("course-v1:SuirosProductions+C01+2024_T1", "suigh"))
     // for development use this:
     // const [studentsPresent, setStudentsPresent] = useState(
     //     [
