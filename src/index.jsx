@@ -49,7 +49,6 @@ initialize({
   handlers: {
     config: () => {
       mergeConfig({
-        ATTENDANCE_TOKEN: process.env.ATTENDANCE_TOKEN || null,
         ATTENDANCE_URL: process.env.ATTENDANCE_URL || null,
       }, 'AttendanceAppConfig');
     },
