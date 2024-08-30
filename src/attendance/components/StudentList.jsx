@@ -21,7 +21,7 @@ const StudentList = ({ courseId }) => {
     const [loading, setLoading] = useState(true);
     const [showAlert, setShowAlert] = useState(false)
     const [showErrorAlert, setShowErrorAlert] = useState(false)
-    const [errorMessage, setErrorMessage] = ""
+    const [errorMessage, setErrorMessage] = useState("")
     const [studentsPresent, setStudentsPresent] = useState([])
 
     const { get, post, stringifyUrl } = utils;
@@ -80,19 +80,21 @@ const StudentList = ({ courseId }) => {
         setLoading(true)
         client('POST', data, postAttendanceUrl())
             .then((response) => {
+                console.log(response)
                 if (!response.ok) {
                     return response.json().then((errorData) => {
-                        console.log(errorData); // Log para ver a estrutura do erro
-                        setErrorMessage(errorData.non_field_errors); // Define a mensagem de erro no estado
+                        setErrorMessage(errorData.non_field_errors[0])
                         setShowErrorAlert(true);
                         setShowAlert(false);
                     });
                 } else {
+                    
                     setShowAlert(true)
                     setShowErrorAlert(false)
                 }
             })
             .catch(error => {
+                setErrorMessage("Erro! Entre em contato com o administrador")
                 setShowErrorAlert(true)
                 setShowAlert(false)
             })
