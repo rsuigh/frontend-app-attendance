@@ -4,7 +4,6 @@ import * as utils from '../data/services/lms/utils';
 import {
     getEnrroledStudentListUrl,
     postAttendanceUrl,
-    getEnrollmentStudentDateJoinedUrl
 } from '../data/services/lms/urls';
 import { Button, Col, Form, Alert } from '@openedx/paragon';
 import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
