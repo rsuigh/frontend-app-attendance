@@ -80,7 +80,6 @@ const StudentList = ({ courseId }) => {
         setLoading(true)
         client('POST', data, postAttendanceUrl())
             .then((response) => {
-                console.log(response)
                 if (!response.ok) {
                     return response.json().then((errorData) => {
                         setErrorMessage(errorData.non_field_errors[0])

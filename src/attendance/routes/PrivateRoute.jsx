@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 
 const PrivateRoute = ({ component: Component }) => {
     const { courseId } = useParams()
-    const [isInstructor, setIsInstructor] = useState(true)    
+    const [isInstructor, setIsInstructor] = useState(false)    
     const [isLoading, setIsLoading] = useState(true);
 
     const { get, post, stringifyUrl } = utils;
