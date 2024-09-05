@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import { getAttendanceUrl } from '../data/services/lms/urls';
 import client from '../data/services/lms/client';
-
+import "./index.scss"
 
 
 
@@ -15,6 +15,8 @@ const HistoryList = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [columns, setColumns] = useState([])
+
+
 
 
   useEffect(() => {
@@ -60,7 +62,9 @@ const HistoryList = () => {
   return (
     <div>
       {loading ? (<p>Carregando...</p>) : (
-        <Scrollable>
+
+
+        <div className="my-custom-table">
           <DataTable
             isFilterable
             isSortable
@@ -112,7 +116,9 @@ const HistoryList = () => {
             <DataTable.Table />
             <DataTable.EmptyTable content="No results found" />
           </DataTable >
-        </Scrollable>
+        </div>
+
+
       )
       }
       <div>
@@ -120,6 +126,9 @@ const HistoryList = () => {
         <a>r = aula de reposição</a>
       </div>
     </div >
+
+
+
   );
 };
 
